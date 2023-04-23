@@ -1,8 +1,16 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function TodoForm(props) {
-  const [firstValue, changedValue] = useState("");
+  const [firstValue, changedValue] = useState(
+    props.edit ? props.edit.value : ""
+  );
+
+  const inputref = useRef(null);
+
+  useEffect(() => {
+    inputref.current.focus();
+  });
 
   //it will handle changes in the input box
   const handlechange = (e) => {
@@ -26,15 +34,33 @@ function TodoForm(props) {
   return (
     <div>
       <form className="todo-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="todo-input"
-          placeholder="Add a todo"
-          name="text"
-          value={firstValue}
-          onChange={handlechange}
-        />
-        <button className="todo-button">Add todo</button>
+        {props.edit ? (
+          <>
+            <input
+              type="text"
+              className="todo-input edit"
+              placeholder="update your item"
+              name="text"
+              value={firstValue}
+              onChange={handlechange}
+              ref={inputref}
+            />
+            <button className="todo-button  edit">Add todo</button>
+          </>
+        ) : (
+          <>
+            <input
+              type="text"
+              className="todo-input "
+              placeholder="Add a todo"
+              name="text"
+              value={firstValue}
+              onChange={handlechange}
+              ref={inputref}
+            />
+            <button className="todo-button">Add todo</button>
+          </>
+        )}
       </form>
     </div>
   );

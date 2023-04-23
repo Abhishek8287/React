@@ -45,7 +45,7 @@ function Todolist() {
   };
   return (
     <div>
-      <h1>what's the plan for today?</h1>
+      <h1>Aaj kuch tufaani karte hai😂</h1>
       <TodoForm onSubmit={addTodo} />
       <Todo
         todos={todos}
